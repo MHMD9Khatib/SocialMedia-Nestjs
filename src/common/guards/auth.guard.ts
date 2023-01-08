@@ -21,12 +21,14 @@ export class AuthGuards implements CanActivate {
         }
 
         const request = context.switchToHttp().getRequest();
-        const { token } = request.headers;
-        if(token){
+        // console.log(1111111111111, request);
+        
+        const { authorization } = request.headers;
+        if(!authorization){
             return false;
         }
 
-        const decoded = verifyToken(token, SYSTEM.SECRET);
+        const decoded = verifyToken(authorization, SYSTEM.SECRET);
         if(!decoded){
             return false;
         }

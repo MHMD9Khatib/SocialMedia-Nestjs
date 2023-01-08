@@ -35,18 +35,11 @@ module.exports = {
                 allowNull: false,
                 defaultValue: new Date(),
               },
-              created_by: {
-                type: Sequelize.STRING,
-              },
-              updated_by: {
-                type: Sequelize.STRING,
-              },
+
               deleted_at: {
                 type: Sequelize.DATE,
               },
-              deleted_by: {
-                type: Sequelize.STRING,
-              },
+
 
         });
     },
