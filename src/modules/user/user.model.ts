@@ -45,9 +45,7 @@ import {
   
     @Column(DataType.STRING)
     password: string;
-  
-    // @Column(DataType.ENUM(ROLES.CONSULTANT, ROLES.PATIENT))
-    // role: ROLES;
+ 
   
   }
   

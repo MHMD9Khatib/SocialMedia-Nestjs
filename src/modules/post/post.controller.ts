@@ -21,9 +21,10 @@ import { PostService } from './post.service';
 
 @Controller('posts')
 export class PostController {
-  constructor(private readonly postService: PostService,
+  constructor(
+    private readonly postService: PostService,
     private commentsService: CommentService,
-    ) {}
+  ) {}
 
   @Public()
   @Post()
@@ -35,7 +36,6 @@ export class PostController {
   findAll(): Promise<Posts[]> {
     return this.findAll();
   }
-
 
   @Get(':postId')
   findOne(
@@ -51,12 +51,6 @@ export class PostController {
     @User() user: { id: number },
     @Body() Comment: CommentDto,
   ): Promise<CommentDto> {
-    return this.postService.publishComment(
-      postId,
-      user.id,
-      Comment,
-    );
+    return this.postService.publishComment(postId, user.id, Comment);
   }
-
 }
-

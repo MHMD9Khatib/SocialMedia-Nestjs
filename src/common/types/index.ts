@@ -6,7 +6,6 @@ export type User = {
     id: number;
     email: string;
     userName: string;
-    // role: ROLES;
   };
   token: string;
 };
@@ -18,6 +17,5 @@ export type PostType = {
     title: string;
     description: string;
   };
-  // comments: Comments[];
 
 };

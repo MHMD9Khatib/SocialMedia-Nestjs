@@ -22,12 +22,10 @@ export class PostService {
     private commentsService: CommentService,
   ) {}
 
-  // Find all questions with pagination and sorting
   async createPost(post: PostDto, userId: number): Promise<PostType> {
     try {
       const newPost = await this.postsRepository.create({
         ...post,
-        // createdBy: userId,
       });
 
       return {
@@ -39,7 +37,6 @@ export class PostService {
         },
       };
     } catch (e) {
-      console.log('wwwwwwwwwwww', e);
       throw new InternalServerErrorException(e);
     }
   }
@@ -50,10 +47,7 @@ export class PostService {
     });
   }
 
-  async findOneWithComments(
-    postId: number,
-    userId: number,
-  ): Promise<PostType> {
+  async findOneWithComments(postId: number, userId: number): Promise<PostType> {
     try {
       const post = await this.postsRepository.findOne({
         where: { id: postId },
@@ -63,12 +57,11 @@ export class PostService {
       }
       const comments = await this.commentsService.findAll(postId);
 
-      return { post};
+      return { post };
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
   }
-
 
   async publishComment(
     postId: number,
@@ -80,24 +73,14 @@ export class PostService {
       if (!ifPost) {
         throw new HttpException(ERRORS.POST_NOT_FOUND, 404);
       }
-      await this.commentsService.Publish(
-        postId,
-        userId,
-        comment,
-      );
+      await this.commentsService.Publish(postId, userId, comment);
       await this.postsRepository.update(
         { isCommented: true },
         { where: { id: postId } },
       );
-      console.log(postId, userId, comment);
       return comment;
-      
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
   }
-
-  
-
-
 }
