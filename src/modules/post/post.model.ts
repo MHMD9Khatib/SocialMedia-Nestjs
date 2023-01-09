@@ -2,9 +2,7 @@ import { AutoIncrement, Column, DataType, DefaultScope, ForeignKey, Model, Prima
 import { Users } from "../user/user.model";
 
 @DefaultScope({
-    attributes: {
-      exclude: ['deletedAt'],
-    },
+    
   })
   @Table({
     tableName: 'Posts',
@@ -33,8 +31,6 @@ import { Users } from "../user/user.model";
   
     @Column(DataType.DATE)
     updatedAt: Date;
-  
-    @Column(DataType.DATE)
-    deletedAt: Date;
+
   }
   

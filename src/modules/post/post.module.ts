@@ -3,9 +3,11 @@ import { CommentModule } from "../comment/comment.module";
 import { PostController } from "./post.controller";
 import { postProvider } from "./post.provider";
 import { PostService } from "./post.service";
+import { PassportModule } from '@nestjs/passport';
+
 
 @Module({
-  imports: [CommentModule],
+  imports: [CommentModule, PassportModule],
   controllers: [PostController],
   providers: [PostService, ...postProvider],
   exports: [PostService],
