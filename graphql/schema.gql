@@ -1,0 +1,55 @@
+interface Node {
+    id: ID;
+}
+
+type User implements Node {
+    id: ID!
+    user_name: String!
+    email: String!
+    password: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+type posts implements Node {
+    id: ID!
+    title: String!
+    description: String!
+    comments: Int
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+type comments implements Node {
+    id: ID!
+    title: String!
+    description: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+type Mutation {
+    signUp(
+        user_name: String!
+        email: String!
+        password: String!
+    ): User
+
+    login(
+        email: String!
+        password: String!
+    ): User
+
+    createPost(
+        user_id: ID!
+        title: String!
+        description: String!
+    ): posts
+
+    createComments(
+        user_id: ID!
+        post_id: ID!
+        title: String!
+        description: String!
+    ): comments
+}

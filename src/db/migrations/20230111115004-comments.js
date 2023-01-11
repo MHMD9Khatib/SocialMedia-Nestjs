@@ -2,13 +2,21 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Posts', {
+    await queryInterface.createTable('Comments', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      userId: {
+      post_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Posts',
+          key: 'id',
+        },
+      },
+      user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -16,19 +24,19 @@ module.exports = {
           key: 'id',
         },
       },
-
       title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-
       description: {
         type: Sequelize.STRING,
         allowNull: false,
       },
 
-      
-
+      comment_time: {
+        type: Sequelize.DATE,
+        defaultValue: '1000-01-01 00:00:00',
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -45,9 +53,7 @@ module.exports = {
     });
   },
 
-
-
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Posts');
+  down(queryInterface, Sequelize) {
+    return queryInterface.dropTable('Comments');
   },
 };
