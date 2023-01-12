@@ -3,6 +3,10 @@ import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { trimmer } from "src/common/utils/trimmer";
 
 export class PostDto{
+    @IsNotEmpty()
+    @IsNumber()
+    userId: number;
+    
     @Transform(trimmer)
     @IsNotEmpty()
     @IsString()
@@ -13,7 +17,5 @@ export class PostDto{
     @IsString()
     description: string;
 
-    @IsNotEmpty()
-    @IsNumber()
-    userId: number;
+
 }

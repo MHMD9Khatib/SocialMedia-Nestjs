@@ -27,10 +27,13 @@ export class PostService {
   // Create new post
   async createPost(post: PostDto, userId: number): Promise<PostType> {
     try {
+      console.log(111111, post);
+      
       const newPost = await this.postsRepository.create({
         ...post,
       });
-
+      console.log(22222, newPost);
+      
       return {
         post: {
           id: newPost.id,
@@ -73,7 +76,7 @@ export class PostService {
             HttpStatus.FORBIDDEN,
           );
         }
-        // await this.postsRepository.delete(postId);
+        await this.postsRepository.destroy({where: { id: postId }});
         return { message: 'post Deleted Successfully' };
       }
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);

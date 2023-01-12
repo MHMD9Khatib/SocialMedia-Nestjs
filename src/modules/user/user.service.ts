@@ -73,6 +73,7 @@ export class UserService {
       return {
         user: {
           id: newUser.id,
+          role: newUser.role,
           email: newUser.email,
           userName: newUser.userName,
         },
@@ -112,6 +113,7 @@ export class UserService {
       return {
         user: {
           id: user.id,
+          role: user.role,
           email: user.email,
           userName: user.userName,
         },

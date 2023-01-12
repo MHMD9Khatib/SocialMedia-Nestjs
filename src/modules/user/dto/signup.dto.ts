@@ -1,7 +1,8 @@
 import { Transform } from "class-transformer";
 import { trimmer } from "src/common/utils/trimmer";
-import { IsEmail, IsNotEmpty ,IsString , Matches} from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty ,IsString , Matches} from 'class-validator';
 import { ERRORS } from "src/common/constants/messages";
+import { ROLES } from "src/common/enums";
 
 export class SignupDto {
     @Transform(trimmer)
@@ -13,6 +14,13 @@ export class SignupDto {
     @IsNotEmpty()
     @IsString()
     userName: string;
+
+    @Transform(trimmer)
+    @IsNotEmpty()
+    @IsEnum(ROLES, {
+      message: 'Type is not valid',
+    })
+    role: ROLES;
 
     @IsNotEmpty()
     @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, {

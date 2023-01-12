@@ -35,13 +35,16 @@ export class PostController {
     private commentsService: CommentService,
   ) {}
 
-  @Public()
+
+  
   @Post()
+  @Roles(ROLES.CONSULTANT)
   async create(@Body() post: PostDto, userId: number) {
     return this.postService.createPost(post, userId);
   }
 
   @Post('/:postId/comment')
+  @Roles(ROLES.CONSULTANT)
   publishComment(
     @Param('postId', ParseIntPipe) postId: number,
     @User() user: { id: number },
@@ -51,6 +54,7 @@ export class PostController {
   }
 
   @Put(':id')
+  @Roles(ROLES.CONSULTANT)
   async updatePost(
     @Param('id') id: string,
     @Body() updatedPost: PostDto,
@@ -64,6 +68,7 @@ export class PostController {
   }
 
   @Delete('/:postId')
+  @Roles(ROLES.CONSULTANT)
   async deletePost(
     @Param('postId', ParseIntPipe) postId: number,
     @Body('userId') user_id: number,
