@@ -1,3 +1,5 @@
+// TODO: Delete unneeded imports/variables/constants
+
 import {
   Body,
   ForbiddenException,
@@ -6,7 +8,6 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { ERRORS, PROVIDERS } from 'src/common/constants';
 import { PostType } from 'src/common/types';
@@ -25,15 +26,18 @@ export class PostService {
   ) {}
 
   // Create new post
-  async createPost(post: PostDto, userId: number): Promise<PostType> {
+  async createPost(post, userInfo): Promise<PostType> {
     try {
-      console.log(111111, post);
-      
+      // TODO: remove console logs
+      console.log(111111, post, userInfo.get({ plain: true }));
+
       const newPost = await this.postsRepository.create({
         ...post,
+        userId: userInfo.id,
       });
+      // TODO: remove console logs
       console.log(22222, newPost);
-      
+
       return {
         post: {
           id: newPost.id,
@@ -48,42 +52,40 @@ export class PostService {
   }
 
   async updatePost(id: string, updatedPost: PostDto): Promise<PostDto> {
-    try {
-      const originalPost = await this.postsRepository.findOne({
-        where: { id },
-      });
-      originalPost.title = updatedPost.title;
-      originalPost.description = updatedPost.description;
-      const savedPost = await originalPost.save();
-      return savedPost;
-    } catch (error) {
-      throw error;
+    const originalPost = await this.postsRepository.findOne({
+      where: { id },
+    });
+
+    if (!originalPost) {
+      throw new HttpException('post Not Found', HttpStatus.BAD_REQUEST);
     }
+    originalPost.title = updatedPost.title;
+    originalPost.description = updatedPost.description;
+    return originalPost.save();
   }
 
   async deletePost(postId: number, @Body('user_id') user_id: number) {
-    try {
-      if (postId > 0) {
-        const post = await this.postsRepository.findOne({
-          where: { id: postId },
-        });
-        if (!post) {
-          throw new HttpException('post Not Found', HttpStatus.BAD_REQUEST);
-        }
-        if (post.userId !== user_id) {
-          throw new HttpException(
-            "You don't have permission to delete this post",
-            HttpStatus.FORBIDDEN,
-          );
-        }
-        await this.postsRepository.destroy({where: { id: postId }});
-        return { message: 'post Deleted Successfully' };
-      }
+    // think of a better logic
+    if (postId <= 0) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-    } catch (err) {
-      console.log(err);
-      throw err;
     }
+    const post = await this.postsRepository.findOne({
+      where: { id: postId },
+    });
+    // const userCreator =
+    if (!post) {
+      throw new HttpException('post Not Found', HttpStatus.BAD_REQUEST);
+    }
+    if (post.userId !== user_id) {
+      throw new HttpException(
+        "You don't have permission to delete this post",
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    // TODO: Delete comments as well
+    await this.postsRepository.destroy({ where: { id: postId } });
+    // TODO: Delete requests do not return anything
+    return { message: 'post Deleted Successfully' };
   }
 
   async findOne(postId: number): Promise<Posts> {
@@ -98,19 +100,15 @@ export class PostService {
     userId: number,
     comment: CommentDto,
   ): Promise<CommentDto> {
-    try {
-      const ifPost = await this.findOne(postId);
-      if (!ifPost) {
-        throw new HttpException(ERRORS.POST_NOT_FOUND, 404);
-      }
-      await this.commentsService.Publish(postId, userId, comment);
-      await this.postsRepository.update(
-        { isCommented: true },
-        { where: { id: postId } },
-      );
-      return comment;
-    } catch (error) {
-      throw new InternalServerErrorException(error);
+    const ifPost = await this.findOne(postId);
+    if (!ifPost) {
+      throw new HttpException(ERRORS.POST_NOT_FOUND, 404);
     }
+    await this.commentsService.Publish(postId, userId, comment);
+    await this.postsRepository.update(
+      { isCommented: true },
+      { where: { id: postId } },
+    );
+    return comment;
   }
 }

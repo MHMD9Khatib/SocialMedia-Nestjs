@@ -13,6 +13,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "db:create:file": "npx sequelize-cli migration:create --name",
+    "db:create": "ts-node node_modules/.bin/sequelize db:create",
     "db:migrate": "ts-node node_modules/.bin/sequelize db:migrate",
     "db:migrate:undo": "ts-node node_modules/.bin/sequelize db:migrate:undo",
     "db:seeders:file": "equelize-cli seed:create --name",
@@ -26,8 +27,8 @@
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
-    "@nestjs/common": "^9.0.0",
-    "@nestjs/config": "^1.2.0",
+    "@nestjs/common": "^9.2.1",
+    "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",

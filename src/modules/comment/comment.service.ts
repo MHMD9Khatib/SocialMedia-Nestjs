@@ -23,7 +23,7 @@ export class CommentService {
     });
     return comments;
   }
-
+  // TODO: small letter
   async Publish(
     postId: number,
     userId: number,

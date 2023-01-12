@@ -25,12 +25,12 @@ export class UserService {
   ) {}
 
   async getPatientName(id: number): Promise<{
-    userName: string;
+    username: string;
   }> {
     const patient = await this.usersRepository.findOne({
       where: { id },
     });
-    return { userName: patient?.userName };
+    return { username: patient?.username };
   }
 
   async getUserByUserNameOrEmail(userNameOrEmail: {
@@ -55,7 +55,7 @@ export class UserService {
     try {
       const userWithSameEmailOrUsername = await this.getUserByUserNameOrEmail({
         email: newUserInfo.email,
-        userName: newUserInfo.userName,
+        userName: newUserInfo.username,
       });
       if (userWithSameEmailOrUsername) {
         throw new HttpException(
@@ -75,9 +75,9 @@ export class UserService {
           id: newUser.id,
           role: newUser.role,
           email: newUser.email,
-          userName: newUser.userName,
+          userName: newUser.username,
         },
-        token: generateToken(newUser.userName),
+        token: generateToken(newUser.username),
       };
     } catch (e) {
       throw new InternalServerErrorException(e);
@@ -115,9 +115,9 @@ export class UserService {
           id: user.id,
           role: user.role,
           email: user.email,
-          userName: user.userName,
+          userName: user.username,
         },
-        token: generateToken(user.userName),
+        token: generateToken(user.username),
       };
     } catch (e) {
       throw new InternalServerErrorException(e);

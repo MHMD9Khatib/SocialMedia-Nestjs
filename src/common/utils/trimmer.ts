@@ -1,4 +1,4 @@
-import { TransformFnParams } from "class-transformer";
+import { TransformFnParams } from 'class-transformer';
 
 export const trimmer = ({ value }: TransformFnParams) =>
-    typeof value === 'string' ? value.trim(): value;
+  typeof value === 'string' ? value.trim() : value;

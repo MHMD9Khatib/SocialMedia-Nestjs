@@ -1,0 +1,4 @@
+1. Fix TODO
+2. Implement Likes
+3. Handle account deactivation
+4. Create paginationInterceptor

@@ -1,3 +1,4 @@
+// TODO: Delete unneeded imports/variables/constants
 import {
   Body,
   Controller,
@@ -35,12 +36,10 @@ export class PostController {
     private commentsService: CommentService,
   ) {}
 
-
-  
   @Post()
   @Roles(ROLES.CONSULTANT)
-  async create(@Body() post: PostDto, userId: number) {
-    return this.postService.createPost(post, userId);
+  async create(@Body() post, @User() userInfo) {
+    return this.postService.createPost(post, userInfo);
   }
 
   @Post('/:postId/comment')
@@ -59,24 +58,21 @@ export class PostController {
     @Param('id') id: string,
     @Body() updatedPost: PostDto,
   ): Promise<PostDto> {
-    try {
-      const savedPost = await this.postService.updatePost(id, updatedPost);
-      return savedPost;
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    const savedPost = await this.postService.updatePost(id, updatedPost);
+    return savedPost;
   }
 
   @Delete('/:postId')
   @Roles(ROLES.CONSULTANT)
   async deletePost(
     @Param('postId', ParseIntPipe) postId: number,
+    // TODO: take user_id from headers
     @Body('userId') user_id: number,
   ) {
-    try {
-      return this.postService.deletePost(postId, user_id);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return this.postService.deletePost(postId, user_id);
   }
+
+  // TODO: get timeline
+
+  // TODO: Create pagination
 }

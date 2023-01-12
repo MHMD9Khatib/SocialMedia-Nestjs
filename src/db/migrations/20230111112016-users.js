@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
       },
 
-      user_name: {
+      username: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -23,17 +23,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-
+      // TODO: created_by, updated_by, deleted_by, it takes id of user
       role: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      
+
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: new Date(),
       },
+
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -46,6 +47,7 @@ module.exports = {
     });
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Users');
   },

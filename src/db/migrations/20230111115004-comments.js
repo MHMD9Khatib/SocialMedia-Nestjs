@@ -33,6 +33,7 @@ module.exports = {
         allowNull: false,
       },
 
+      // TODO: delete this, use created_at
       comment_time: {
         type: Sequelize.DATE,
         defaultValue: '1000-01-01 00:00:00',
@@ -53,6 +54,7 @@ module.exports = {
     });
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   down(queryInterface, Sequelize) {
     return queryInterface.dropTable('Comments');
   },

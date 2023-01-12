@@ -8,6 +8,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
+
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -19,14 +20,16 @@ module.exports = {
 
       title: {
         type: Sequelize.STRING,
+        // TODO: make nullable
         allowNull: false,
       },
 
       description: {
         type: Sequelize.STRING,
+        // TODO: make nullable
         allowNull: false,
       },
-
+      // TODO: created_by, updated_by, deleted_by, it takes id of user
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -43,6 +46,7 @@ module.exports = {
     });
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Posts');
   },
