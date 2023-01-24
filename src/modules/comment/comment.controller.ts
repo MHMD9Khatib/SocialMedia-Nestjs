@@ -1,13 +1,5 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Inject,
-  Param,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { Roles, User } from 'src/common/decorators';
-import { hashPassword } from 'src/common/utils';
 import { CommentService } from './comment.service';
 import { CommentDto } from './dto/comment.dto';
 
@@ -19,19 +11,16 @@ export class CommentController {
   ) {}
   @Post(':postId/comment')
   async createComment(
-  @Param('postId') postId: number,
-  @User('id') userData: any,
-  @Body() comment: CommentDto,
+    @Param('postId') postId: number,
+    @User('id') userData: any,
+    @Body() comment: CommentDto,
   ) {
-    
-  return await this.commentService.createComment(+postId, userData, comment);
+    return await this.commentService.createComment(+postId, userData, comment);
   }
 
   @Get('/comments/:id')
   @Roles('consultant')
-  findOne(@Param('id') id:string,   
-  ){    
-    return this.commentService.getCommentsForPost(+id)
+  findOne(@Param('id') id: string) {
+    return this.commentService.getCommentsForPost(+id);
   }
-
 }

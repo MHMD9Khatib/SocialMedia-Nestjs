@@ -1,4 +1,10 @@
-import { forwardRef, HttpException, Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  forwardRef,
+  HttpException,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ERRORS, PROVIDERS } from 'src/common/constants';
 import { PostService } from '../post/post.service';
 import { Comments } from './comment.model';
@@ -30,8 +36,7 @@ export class CommentService {
       ...comment,
       postId,
       userId: userData.id,
-    },
-    );
+    });
   }
 
   async createComment(
@@ -56,8 +61,7 @@ export class CommentService {
     if (!post) {
       return 'post not found';
     }
-    const comments = await this.findAll( id );
-    console.log(11111, comments);
+    const comments = await this.findAll(id);
 
     return {
       post,

@@ -1,20 +1,14 @@
 import {
-  Body,
   forwardRef,
   HttpException,
   HttpStatus,
   Inject,
   Injectable,
   InternalServerErrorException,
-  UnauthorizedException,
 } from '@nestjs/common';
-import { ERRORS, PROVIDERS } from 'src/common/constants';
+import { PROVIDERS } from 'src/common/constants';
 import { User } from 'src/common/decorators';
-import { PostType } from 'src/common/types';
-import { threadId } from 'worker_threads';
-import { Comments } from '../comment/comment.model';
 import { CommentService } from '../comment/comment.service';
-import { CommentDto } from '../comment/dto/comment.dto';
 import { PostDto } from './dto/post.dto';
 import { Posts } from './post.model';
 
