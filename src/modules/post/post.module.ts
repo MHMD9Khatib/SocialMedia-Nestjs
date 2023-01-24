@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { CommentModule } from "../comment/comment.module";
 import { PostController } from "./post.controller";
 import { postProvider } from "./post.provider";
@@ -7,7 +7,7 @@ import { PassportModule } from '@nestjs/passport';
 
 
 @Module({
-  imports: [CommentModule, PassportModule],
+  imports: [ forwardRef(() => CommentModule),PassportModule],
   controllers: [PostController],
   providers: [PostService, ...postProvider],
   exports: [PostService],

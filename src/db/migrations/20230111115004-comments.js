@@ -33,10 +33,6 @@ module.exports = {
         allowNull: false,
       },
 
-      comment_time: {
-        type: Sequelize.DATE,
-        defaultValue: '1000-01-01 00:00:00',
-      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

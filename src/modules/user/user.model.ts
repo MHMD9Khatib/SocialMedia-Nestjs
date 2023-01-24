@@ -11,24 +11,35 @@ import {
   } from 'sequelize-typescript';
   import { ROLES } from 'src/common/enums';
   
-  @DefaultScope({
-    attributes: {
-      exclude: ['deletedAt'],
-    },
-  })
-  @Scopes({
-    basic: {
-      attributes: {
-        exclude: ['deletedAt,password'],
-      },
-    },
-  })
+ 
   @Table({
     tableName: 'Users',
     timestamps: true,
     underscored: true,
     paranoid: true,
   })
+
+  @Scopes(() => {
+    return {
+      no_password: {
+        attributes: {
+          exclude: ['password'],
+        },
+      },
+      basic: {
+        attributes: {
+          exclude: [
+            'updatedAt',
+            'createdAt',
+            'updatedBy',
+            'createdBy',
+            'deletedAt',
+          ],
+        },
+      },
+    };
+  })
+  
   export class Users extends Model {
     @PrimaryKey
     @AutoIncrement

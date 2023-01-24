@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { forwardRef, MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import config from 'config';
 import { CommentModule } from './modules/comment/comment.module';
@@ -13,6 +13,7 @@ import { UserModule } from './modules/user/user.module';
     PostModule,
     DatabaseModule,
     UserModule,
+
     ConfigModule.forRoot({
       load: [config],
       isGlobal: true,

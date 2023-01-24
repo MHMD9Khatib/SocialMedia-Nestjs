@@ -19,4 +19,5 @@ export type PostType = {
     description: string;
   };
 
+
 };

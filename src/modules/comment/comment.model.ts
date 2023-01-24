@@ -12,11 +12,6 @@ import {
   import { Users } from '../user/user.model';
   import { Posts } from '../post/post.model';
   
-  @DefaultScope({
-    attributes: {
-      exclude: ['deletedAt', 'deletedBy'],
-    },
-  })
   @Table({
     tableName: 'Comments',
     timestamps: true,

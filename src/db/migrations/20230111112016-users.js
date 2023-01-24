@@ -28,20 +28,28 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      
+
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: new Date(),
+      },
+      created_by: {
+        type: Sequelize.STRING,
       },
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: new Date(),
       },
-
+      updated_by: {
+        type: Sequelize.STRING,
+      },
       deleted_at: {
         type: Sequelize.DATE,
+      },
+      deleted_by: {
+        type: Sequelize.STRING,
       },
     });
   },

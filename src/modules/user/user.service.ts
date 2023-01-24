@@ -27,7 +27,7 @@ export class UserService {
   async getPatientName(id: number): Promise<{
     userName: string;
   }> {
-    const patient = await this.usersRepository.findOne({
+    const patient = await this.usersRepository.scope('basic').findOne({
       where: { id },
     });
     return { userName: patient?.userName };
@@ -44,7 +44,7 @@ export class UserService {
       where.userName = userNameOrEmail.userName;
     }
 
-    return this.usersRepository.findOne({
+    return this.usersRepository.scope('basic').findOne({
       where: {
         ...where,
       },

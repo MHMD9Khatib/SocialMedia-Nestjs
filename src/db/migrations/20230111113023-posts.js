@@ -19,12 +19,10 @@ module.exports = {
 
       title: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
 
       description: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
 
       created_at: {
@@ -39,6 +37,15 @@ module.exports = {
       },
       deleted_at: {
         type: Sequelize.DATE,
+      },
+      created_by: {
+        type: Sequelize.STRING,
+      },
+      updated_by: {
+        type: Sequelize.STRING,
+      },
+      deleted_by: {
+        type: Sequelize.STRING,
       },
     });
   },
