@@ -3,7 +3,6 @@ import {
   HttpException,
   Inject,
   Injectable,
-  InternalServerErrorException,
 } from '@nestjs/common';
 import { ERRORS, PROVIDERS } from 'src/common/constants';
 import { PostService } from '../post/post.service';
@@ -44,7 +43,6 @@ export class CommentService {
     userData: any,
     comment: CommentDto,
   ): Promise<CommentDto> {
-    try {
       const ifPost = await this.postService.findOne(postId);
       if (!ifPost) {
         throw new HttpException(ERRORS.POST_NOT_FOUND, 404);
@@ -52,20 +50,6 @@ export class CommentService {
       await this.publish(postId, userData, comment);
 
       return comment;
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
   }
-  async getCommentsForPost(id: number) {
-    const post = await this.postService.findOne(id);
-    if (!post) {
-      return 'post not found';
-    }
-    const comments = await this.findAll(id);
 
-    return {
-      post,
-      comments,
-    };
-  }
 }

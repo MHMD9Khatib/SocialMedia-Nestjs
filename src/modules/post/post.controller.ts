@@ -15,6 +15,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { Roles, User } from 'src/common/decorators';
 import { ROLES } from 'src/common/enums';
+import { Comments } from '../comment/comment.model';
 import { CommentService } from '../comment/comment.service';
 import { CommentDto } from '../comment/dto/comment.dto';
 import { PostDto } from './dto/post.dto';
@@ -33,12 +34,9 @@ export class PostController {
     @Query('pageNr') pageNr?: number,
     @Query('offset') offset?: number,
     @Query('limit') limit?: number,
-  ): Promise<Posts[]> {
-    return await this.postService.getTimeline(
-      pageNr || 1,
-      offset || 10,
-      limit || 10,
-    );
+    @Query('withComments') withComments?: boolean,
+  ): Promise<{ posts: Posts[], comments?: Comments[] }> {
+    return await this.postService.getTimeline(pageNr, offset, limit, withComments);
   }
 
   @Post()
@@ -61,5 +59,11 @@ export class PostController {
     @User('id') userData: any,
   ) {
     return await this.postService.deletePost(postId, userData.id);
+  }
+
+  @Get('/comments/:id')
+  @Roles('consultant')
+  findOne(@Param('id') id: string) {
+    return this.postService.getCommentsForPost(+id);
   }
 }

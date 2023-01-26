@@ -18,9 +18,5 @@ export class CommentController {
     return await this.commentService.createComment(+postId, userData, comment);
   }
 
-  @Get('/comments/:id')
-  @Roles('consultant')
-  findOne(@Param('id') id: string) {
-    return this.commentService.getCommentsForPost(+id);
-  }
+
 }
